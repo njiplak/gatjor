@@ -1,0 +1,109 @@
+# Gatjor Configuration
+# PHP malicious code scanner configuration file
+
+# File inclusion rules
+# Determines which files to scan
+include:
+  # Glob patterns for files to scan
+  patterns:
+    - "**/*.php"
+    - "**/*.php5"
+    - "**/*.php7"
+    - "**/*.phtml"
+    - "**/*.inc"
+    - "**/*.module"
+
+  # Detect PHP by content regardless of extension
+  # Scans files for <?php or <? opening tags
+  detect_by_content: true
+
+  # Additional extensions to check for PHP content
+  # Only scanned if detect_by_content is true
+  content_scan_extensions:
+    - ".txt"
+    - ".html"
+    - ".htm"
+    - ".js"
+    - ".css"
+    - ".jpg"
+    - ".png"
+    - ".gif"
+    - ".ico"
+
+# File exclusion rules
+# Files matching these patterns will be skipped
+exclude:
+  # Directories to skip entirely
+  directories:
+    - "vendor/"
+    - "node_modules/"
+    - ".git/"
+    - "tests/"
+    - "test/"
+    - "cache/"
+    - "tmp/"
+
+  # Specific file patterns to skip
+  patterns:
+    - "**/composer.lock"
+    - "**/package-lock.json"
+    - "**/*.min.js"
+    - "**/*.min.css"
+
+  # Specific files to skip (relative to scan root)
+  files:
+    - "deploy.php"
+    - "scripts/maintenance.php"
+
+# Scan functions configuration
+# Enable or disable specific detection rules
+scan_functions:
+  # Enable all by default, then disable specific ones
+  # If 'enable' is specified, only those are run
+  # If 'disable' is specified, all except those are run
+
+  # Uncomment to enable only specific functions:
+  # enable:
+  #   - gambling-keyword
+  #   - dangerous-eval
+
+  # Disable specific functions:
+  disable: []
+
+  # Available scan functions:
+  # Content Detection:
+  #   - gambling-keyword        : Detects gambling-related keywords
+  #
+  # Command Execution:
+  #   - dangerous-shell-exec    : Detects shell_exec() usage
+  #   - dangerous-exec          : Detects exec() usage
+  #   - dangerous-system        : Detects system() usage
+  #   - dangerous-passthru      : Detects passthru() usage
+  #   - dangerous-proc-open     : Detects proc_open() usage
+  #   - dangerous-popen         : Detects popen() usage
+  #
+  # Code Execution:
+  #   - dangerous-eval          : Detects eval() usage
+  #   - dangerous-assert        : Detects assert() with string argument
+  #   - dangerous-create-function: Detects create_function() usage
+  #   - dangerous-preg-replace-eval: Detects preg_replace() with /e modifier
+  #
+  # File Inclusion:
+  #   - dynamic-include         : Detects include/require with variable paths
+
+# Output configuration
+output:
+  # Default output format
+  format: html
+
+  # Default output file path (can be overridden with -o flag)
+  path: report.html
+
+  # Include code snippets in report
+  include_snippets: true
+
+  # Maximum lines of code to show per finding
+  snippet_lines: 5
+
+  # Include recommendations in report
+  include_recommendations: true

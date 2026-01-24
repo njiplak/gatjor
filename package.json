@@ -1,0 +1,16 @@
+{
+  "name": "gatjor",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "php-parser": "^3.2.5",
+    "yaml": "^2.8.2"
+  }
+}
